@@ -5,6 +5,7 @@ import json
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 
 async def get_server_data(name: str, address: str) -> Tuple[dict,bool]:   
     try:
@@ -72,12 +73,14 @@ def process():
     
     print(server_stat_list)
 
-    plt.figure()
+    #font=font_manager.FontProperties(fname="dengxian.ttf")
+    plt.figure(figsize=(10,3))
+    plt.style.use("ggplot")
     plt.rcParams["font.sans-serif"]=["SimHei"]
     for _key in server_stat_list.keys():
-        print([i[1] for i in server_stat_list[_key]] )
+        #print([i[1] for i in server_stat_list[_key]] )
         plt.plot([i[1] for i in server_stat_list[_key]],[i[0] for i in server_stat_list[_key]],label=_key,alpha=0.5)
-    plt.legend()
+    plt.legend(loc="lower left")
     plt.xlabel("Time")
     plt.ylabel("Player Number")
     plt.savefig("plot.png")
