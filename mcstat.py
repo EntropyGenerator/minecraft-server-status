@@ -90,5 +90,5 @@ if __name__ == '__main__':
     process()
 
     scheduler=BlockingScheduler()
-    scheduler.add_job(process,"cron",minite="0,10,20,30,40,50")
+    scheduler.add_job(process,"cron",minute="0,10,20,30,40,50")
     scheduler.start()
