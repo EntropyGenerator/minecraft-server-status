@@ -69,7 +69,7 @@ def process():
         result=asyncio.run(get_server_data(_key,server_list[_key]))
         if(len(server_stat_list[_key])>48):
             server_stat_list[_key].pop(0)
-        server_stat_list[_key].append([result["online"],f"{t.tm_hour}:{t.tm_min}"])
+        server_stat_list[_key].append([result["online"],f"{t.tm_mon}-{t.tm_mday} {t.tm_hour}:{t.tm_min}"])
     
     print(server_stat_list)
 
@@ -80,9 +80,11 @@ def process():
     for _key in server_stat_list.keys():
         #print([i[1] for i in server_stat_list[_key]] )
         plt.plot([i[1] for i in server_stat_list[_key]],[i[0] for i in server_stat_list[_key]],label=_key,alpha=0.5)
-    plt.legend(loc="lower left")
+    plt.xticks(ticks=list(range(0,24)),rotation=45)
     plt.xlabel("Time")
     plt.ylabel("Player Number")
+    plt.legend(loc="lower left")
+    plt.tight_layout()
     plt.savefig("plot.png")
 
     with open("status.json","w",encoding="utf-8") as _f:
