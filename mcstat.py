@@ -74,15 +74,17 @@ def process():
     print(server_stat_list)
 
     #font=font_manager.FontProperties(fname="dengxian.ttf")
+    max_tick=0
     plt.figure(figsize=(10,3))
     plt.style.use("ggplot")
     plt.rcParams["font.sans-serif"]=["SimHei"]
     for _key in server_stat_list.keys():
         #print([i[1] for i in server_stat_list[_key]] )
         plt.plot([i[1] for i in server_stat_list[_key]],[i[0] for i in server_stat_list[_key]],label=_key,alpha=0.5)
-    plt.xticks(ticks=list(range(0,24)),rotation=45)
-    plt.xlabel("Time")
-    plt.ylabel("Player Number")
+        if len(server_stat_list[_key])>max_tick:
+            max_tick=len(server_stat_list[_key])
+    plt.xticks(ticks=list(range(0,max_tick,10)),rotation=45)
+    plt.title("Player Statistic")
     plt.legend(loc="lower left")
     plt.tight_layout()
     plt.savefig("plot.png")
